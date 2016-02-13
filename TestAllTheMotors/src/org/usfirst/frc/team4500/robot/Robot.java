@@ -83,12 +83,14 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	double speed = .3;
     	zero.set(speed); 
-    	one.set(speed);
+    	/*one.set(speed);
+    	two.set(speed);
+    	three.set(speed);
     	four.set(speed);
     	five.set(speed);
     	six.set(speed);
     	seven.set(speed);
-    	eight.set(speed);
+    	eight.set(speed);*/
     	
         
     }
