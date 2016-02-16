@@ -81,18 +81,35 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	double speed = .3;
-    	zero.set(speed); 
-    	/*one.set(speed);
-    	two.set(speed);
-    	three.set(speed);
-    	four.set(speed);
-    	five.set(speed);
-    	six.set(speed);
-    	seven.set(speed);
-    	eight.set(speed);*/
+        //This is simply an infinitely repeating while loop which sets each motor to 30% speed.
+    	//Each motor is named the number of the port that it is in.
+    	//The code is all there, it's just commented out.
+    	//Someone needs to test each motor, one by one, by simply un-commenting (deleting the //)
+    	//each line that's inside of the while loop below one by one, and then deploying that code to the robot
+    	//and enabling it.
+    	//!!!!!!!NOTE: THE MOTOR THAT ROTATES THE LAZY SUSAN WILL CAUSE THE LAZY SUZAN TO DERAIL AND PULL OUT ALL THE WIRES
+    	//IF YOU LET IT KEEP ROTATING TOO LONG. START THE CANNON OUT FACING STRAIGHT FORWARD SO THAT THERE IS AS MUCH TRACK AS 
+    	//POSSIBLE ON EITHER SIDE OF THE GEAR ATTACHED TO THE MOTOR.!!!!!!!!!!!
+    	//Record which motor each line of code activates, i.e. write down "zero: left tank, one: right tank, etc..."
+    	//in a comment on the Trello card.
+    	//If a motor doesn't run, write that down too.
+    	//Some of the motors may not be hooked up to anything, so it may be difficult to tell if they are running.
+    	//Once all nine motors have been tested, it's time to try to get the ones that didn't run working,
+    	//it's probably an issue with the wiring.
+    	//Make sure the Trello card is up to date at the end of the day.
     	
-        
+    	double speed = .3;
+    	while(true) {
+        	//zero.set(speed);
+        	//one.set(-speed);
+        	//two.set(speed);
+        	//three.set(speed);
+        	//four.set(speed);
+        	//five.set(speed);
+    		//six.set(speed);
+    		//seven.set(speed);
+    		//eight.set(speed);
+        }
     }
     
     /**
