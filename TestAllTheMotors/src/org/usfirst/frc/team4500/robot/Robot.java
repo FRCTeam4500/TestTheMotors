@@ -1,10 +1,13 @@
 
 package org.usfirst.frc.team4500.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,10 +23,19 @@ public class Robot extends IterativeRobot {
     final String defaultAuto = "Default";
     final String customAuto = "My Auto";
     String autoSelected;
-    SendableChooser chooser;
-    
-    Victor zero, one, four, five, six, seven, eight;
-    Jaguar two, three;
+    SendableChooser chooser; 
+    Compressor c;
+    Joystick joy;
+    Joystick joy2;
+    boolean tank;
+    boolean grabber;
+    DoubleSolenoid tankPnu;
+    DoubleSolenoid grabberPnu;
+    RobotDrive drive;
+    Victor six;
+    Victor zero, one, four, five, seven, eight;
+    Talon two, three;
+    boolean getter = true;
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -35,15 +47,24 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", defaultAuto);
         chooser.addObject("My Auto", customAuto);
         SmartDashboard.putData("Auto choices", chooser);
-        zero = new Victor(0);
-        one = new Victor(1);
-        two = new Jaguar(2);
-        three = new Jaguar(3);
+        //zero = new Talon(0);
+        //one = new Talon(1);
+        //two = new Talon(2);
+        //three = new Talon(3);
         four = new Victor(4);
         five = new Victor(5);
         six = new Victor(6);
-        seven = new Victor(7);
-        eight = new Victor(8);
+        //seven = new Talon(7);
+        //eight = new Talon(8);
+        c = new Compressor(0);
+        joy = new Joystick(0);
+        joy2 = new Joystick(1);
+        tank = joy.getTrigger();
+        grabber = joy.getRawButton(2);
+        tankPnu = new DoubleSolenoid(0,1);
+        grabberPnu = new DoubleSolenoid(2,3);
+        //drive = new RobotDrive(zero, one);
+        
     }
     
 	/**
@@ -97,9 +118,42 @@ public class Robot extends IterativeRobot {
     	//Once all nine motors have been tested, it's time to try to get the ones that didn't run working,
     	//it's probably an issue with the wiring.
     	//Make sure the Trello card is up to date at the end of the day.
-    	
+        tank = joy.getTrigger();
+        grabber = joy.getRawButton(2);
+        //drive.tankDrive(joy.getY(), joy2.getY());
+    	c.start();
     	double speed = .3;
-    	while(true) {
+    	//.set(joy.getZ());
+    	four.set(joy.getZ());
+    	//two.set(joy.getX());
+    	if (tank) {
+    		//if (getter) {
+    			//if (tankPnu.get()== Value.kForward){
+    			tankPnu.set(Value.kReverse);
+    			//getter = false;
+    			}
+    			else{
+    			tankPnu.set(Value.kForward);
+    			//getter = false;
+    			}
+    			
+    		//} else {
+    			//getter=true;
+    		//}
+    		//if (getter) {
+    		
+        		//getter = false;
+    	//} else {
+    		
+    		//tankPnu.set(Value.kReverse);
+    		//getter = true; 
+    	//}
+    	
+    	if (grabber) {
+    		grabberPnu.set(Value.kForward);
+    	} else {
+    		grabberPnu.set(Value.kReverse);
+    	}
         	//zero.set(speed);
         	//one.set(-speed);
         	//two.set(speed);
@@ -109,8 +163,9 @@ public class Robot extends IterativeRobot {
     		//six.set(speed);
     		//seven.set(speed);
     		//eight.set(speed);
-        }
-    }
+       }
+    
+    
     
     /**
      * This function is called periodically during test mode
